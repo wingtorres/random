@@ -1,5 +1,6 @@
 function [x] = bro(weight)
-%Calculate
+%Calculate the optimal linear combination of weight plates for barbell exercises.
+#The code minimizes the # of weights using integer linear programming, while ensuring the existence of a 45lb plate if necessary.
 
 if weight < 45
     disp('do you even lift?') 
@@ -14,7 +15,7 @@ intcon = 1:6;
 Aeq =  2*[45;35;25;10;5;2.5]';
 beq = weight-45;
 lb = zeros(6,1);
-lb(1) = floor((weight-45)/90); %require 45lb for respekt
+lb(1) = floor((weight-45)/90); %require 45lb for respect
 ub = [Inf,Inf,Inf,Inf,Inf,Inf];
 options = optimoptions('intlinprog','Display','off');
 x = intlinprog(f,intcon,[],[],Aeq,beq,lb,ub,[],options);
